@@ -12,3 +12,6 @@
 
 //MAJOR KEY 4: score board to keep track of how many player eats. 
 
+//MAJOR 5: find a function where when the snake hits a wall, it resets the game
+
+//step 6: find a function where when snake hits himself, game resets
