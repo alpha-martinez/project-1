@@ -1,0 +1,14 @@
+//Snake game: What you need to do? 
+
+//Step 1: Get your HTML, CSS, and JS all connected 
+
+//Step 2: Figuring out how to set your HTML...do i use canvas?
+
+//MAJOR KEY 1: figure out how to move the snake around
+
+//MAJOR KEY 2: figure out how to randomly place a block around the grid 
+
+//MAJOR KEY 3: storage system? I need to take into consideration that when a snake eats a "apple"/"boxes", it gets added to its tail
+
+//MAJOR KEY 4: score board to keep track of how many player eats. 
+
