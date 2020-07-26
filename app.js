@@ -1,8 +1,10 @@
-//Snake game: What you need to do? 
+//Snake game: What you need to do? -->
 
-//Step 1: Get your HTML, CSS, and JS all connected 
+//Step 1: Get your HTML, CSS, and JS all connected [DONE]
 
-//Step 2: Figuring out how to set your HTML...do i use canvas?
+//Step 2: start mapping HTML and CSS [starting...]
+
+//Step: Figuring out how to set your HTML...do i use canvas?
 
 //MAJOR KEY 1: figure out how to move the snake around
 

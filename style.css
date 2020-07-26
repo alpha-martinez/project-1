@@ -1,0 +1,61 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding-top: 1em;
+    text-align: center;
+}
+
+h1, h2 {
+    font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
+    color: coral;
+}
+
+canvas {
+    background-color: rgb(82, 223, 82);
+    width: 100%;
+    height: 100%
+}
+
+#container {
+    min-width: 50em;
+    background-color: lightgreen;
+    margin: 0 auto;
+    padding: 1em;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-rows: .25fr .5fr .25fr;
+    grid-template-columns: .25fr .5fr .25fr;
+    grid-template-areas: "top-left top-left top-right"
+                         "game game game"
+                         "btm-left btm-right btm-right";
+}
+
+#top-left, #top-right, #btm-left, #btm-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(5, 139, 5);
+}
+
+main {
+    grid-area: game;
+}
+
+#top-left {
+    grid-area: top-left;
+}
+
+#top-right {
+    grid-area: top-right;
+}
+
+#btm-left {
+    grid-area: btm-left;
+}
+
+#btm-right {
+    grid-area: btm-right;
+}
