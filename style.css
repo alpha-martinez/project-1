@@ -16,7 +16,7 @@ h1, h2 {
 canvas {
     background-color: rgb(82, 223, 82);
     width: 100%;
-    height: 100%
+    height: 100;
 }
 
 #container {
