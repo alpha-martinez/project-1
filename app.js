@@ -3,18 +3,18 @@ let movementDisplay;
 let ctx
 let game;
 let snake;
-let apple;
+let apple; //food
 let snakeBody = []; //have an array for the snake body
 
 
-//name arrow keys as variables to make readable
-// const up_arrow = 38;
-// const down_arrow = 40;
-// const right_arrow = 39;
-// const left_arrow = 37;
+//name arrow keys as variables to make it readable
+const up_arrow = 38;
+const down_arrow = 40;
+const right_arrow = 39;
+const left_arrow = 37;
 
-// this creates new characters
-function Crawler(x, y, width, height, color) {
+// this is for my snake character
+function Snake(x, y, width, height, color) {
   this.x = x;
   this.y = y;
   this.width = width;
@@ -25,23 +25,22 @@ function Crawler(x, y, width, height, color) {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
-  this.direction = function() {
-        this.x += this.speedX
-        this.y += speedY
-  }
 }
 
 
-//call a function so you can create the snakeBody as you go 
- let createBody = (snakeBody) => {
-    ctx.fillStyle = 'lightred';
-    ctx.strokestyle = 'darkred';
-
-    ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
-    ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
+//this is for my apple character
+function Apple(x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.alive = true;
+    this.render = function() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
 }
-//append onto the body as it eats something so that the rest of the body shows up 
-
 
 
 const detectHit = () => {
@@ -70,36 +69,36 @@ const gameLoop = () => {
   snake.render()
 }
 
-this.moveDirection = function() {
+//attempting to add velocity 
+this.update = function() {
     this.x += this.speedX;
     this.y += this.speedY;
 }
 
-
 const movementHandler = e => {
-  console.log(e)
-  // w: 87, a:65, s:83, d:68
-  switch (e.keyCode) {
-    case (38): // up arrow key
-      snake.speedX = 0;
-      snake.speedY += 1;
-      break;
-    case (40): // down arrow key
-      snake.speedX = 0;
-      snake.speedY += 1;
-      break;
-    case (37): // left arrow key
-        snake.speedX += 1;
-        snake.speedY = 0;
-      break;
-    case (39): // right arrow key
-        snake.speedX += 1;
-        snake.speedY = 0;
-      break;
-    default:
-      console.log('invalid');
+    let key = e.keyCode
+    // w: 87, a:65, s:83, d:68
+    switch (key) {
+      case (up_arrow): // w up
+        if (snake.y > 0) snake.y -=5 //if your snake 
+        break;
+
+      case (down_arrow): // s down
+        if (snake.y + snake.height < game.height) snake.y +=5
+        break;
+
+      case (left_arrow): // a left
+        if (snake.x > 0) snake.x -=5
+        break;
+
+      case (right_arrow): // d right
+        if (snake.x + snake.width < game.width) snake.x +=5
+        break;
+
+      default:
+        console.log('invalid');
+    }
   }
-}
 
 
 
@@ -109,12 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
   // CANVAS CONFIG
-  game.setAttribute('height', 400);
-  game.setAttribute('width', 800);
+  game.setAttribute('height', '400px');
+  game.setAttribute('width', '700px');
   ctx = game.getContext('2d');
   // CHARACTER REFS
-  apple = new Crawler(300, 100, 15, 15, 'red');
-  snake = new Crawler(150, 150, 20, 20, 'yellow');
+  apple = new Apple(300, 100, 15, 15, 'red');
+  snake = new Snake(150, 150, 20, 20, 'yellow');
+
   document.addEventListener('keydown', movementHandler);
   let runGame = setInterval(gameLoop, 60);
 })
