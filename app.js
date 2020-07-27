@@ -41,7 +41,13 @@ function Apple(x, y, width, height, color) {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
+//function for apple falling randomly
+function locateApple() {
 
+    let random_x = Math.floor(Math.random() * 5);
+    
+    let random_y = Math.floor(Math.random() * 5);
+}    
 
 const detectHit = () => {
     //check for collision on x-axis
