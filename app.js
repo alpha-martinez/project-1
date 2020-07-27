@@ -29,7 +29,7 @@ function Snake(x, y, width, height, color) {
 
 
 //this is for my apple character
-function Apple(x, y, width, height, color) {
+function Apple (x, y, width, height, color) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -42,10 +42,11 @@ function Apple(x, y, width, height, color) {
     }
 }
 //function for apple falling randomly
+//The Math.floor() function returns the largest integer less than or equal to a given number.
+//math.random() function returns a random number
 function locateApple() {
-
-    let random_x = Math.floor(Math.random() * 5);
     
+    let random_x = Math.floor(Math.random() * 5);
     let random_y = Math.floor(Math.random() * 5);
 }    
 
@@ -81,6 +82,8 @@ this.update = function() {
     this.y += this.speedY;
 }
 
+//I don't want the snake moving the opposite of 
+
 const movementHandler = e => {
     let key = e.keyCode
     // w: 87, a:65, s:83, d:68
@@ -114,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
   // CANVAS CONFIG
-  game.setAttribute('height', '400px');
-  game.setAttribute('width', '700px');
+  game.setAttribute('height', '530px');
+  game.setAttribute('width', '1500px');
   ctx = game.getContext('2d');
   // CHARACTER REFS
   apple = new Apple(300, 100, 15, 15, 'red');
