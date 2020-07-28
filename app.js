@@ -5,6 +5,8 @@ let game;
 let snake;
 let apple; //food
 let snakeBody = []; //have an array for the snake body
+let random_x;
+let random_y;
 
 // this is for my snake character
 function Crawler(x, y, width, height, color) {
@@ -26,6 +28,7 @@ function Crawler(x, y, width, height, color) {
   this.update = function() {
             this.x += this.speedX;//this is for speed
             this.y += this.speedY;// this is for speed
+  ///////////////////need to check for collision with the walls///////////////////////////////////////          
         if (this.x > game.height) {
             this.x = 0;
         } 
@@ -72,8 +75,6 @@ this.newMove = function(newDirection) {
     }
   
 }
-///////////////////need to check for collision with the walls///////////////////////////////////////////////////////////////
-
 
 //this is for my apple character
 function Food (x, y, width, height, color) {
@@ -93,8 +94,8 @@ function Food (x, y, width, height, color) {
 //math.random() function returns a random number
 function locateApple() {
     
-    let random_x = Math.floor(Math.random() * 5);
-    let random_y = Math.floor(Math.random() * 5);
+    random_x = Math.floor(Math.random() * 5);
+    random_y = Math.floor(Math.random() * 5);
 }    
 
 
@@ -105,8 +106,12 @@ const detectHit = () => {
     if (snake.x + snake.width > apple.x &&
         snake.x < apple.x + apple.width &&
         snake.y + snake.height > apple.y &&
-        snake.y < apple.y + apple.height 
-    ) { apple.alive = false;
+        snake.y < apple.y + apple.height ) { 
+        
+        apple.alive = false;
+        locateApple(apple);
+        apple = new Food(random_x, random_y, 15, 15, 'red');
+        console.log(apple);
     }
 }  
 
@@ -161,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
       snake.update();
       snake.render();
       apple.render();
+      detectHit();
   }, 100);
   
 });
