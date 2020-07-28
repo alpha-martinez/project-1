@@ -25,13 +25,21 @@ function Crawler(x, y, width, height, color) {
     //https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript/Bounce_off_the_walls
   this.update = function() {
             this.x += this.speedX;//this is for speed
-            this.y += this.speedY;
-        
-            if (this.y + snake.y > game.height || this.y < 0) {
-            this.y = -10;
-        }     
-    }
-    
+            this.y += this.speedY;// this is for speed
+        if (this.x > game.height) {
+            this.x = 0;
+        } 
+        if (this. y > game.width) {
+            this.y = 0;
+        } 
+        if (this.x < 0) {
+            this.x = game.width
+        } 
+        if (this.y < 0) {
+            this.y = game.height
+        }    
+    }   
+
 //I don't want the snake moving the opposite direction
 //name arrow keys as variables to make it readable
 const up_arrow = 38;
@@ -42,10 +50,10 @@ const left_arrow = 37;
 this.newMove = function(newDirection) {
     switch(newDirection) {
         case (up_arrow):
+        
             this.speedX = 0;
             this.speedY = -10;
             break;
-
         case (down_arrow):
             this.speedX = 0; 
             this.speedY = 10;
@@ -118,7 +126,9 @@ const gameLoop = () => {
   }
 
 
+//create a function for game over
 
+//create a scoreboard
 
 
 
