@@ -28,7 +28,6 @@ function Crawler(x, y, width, height, color) {
   this.update = function() {
             this.x += this.speedX;//this is for speed
             this.y += this.speedY;// this is for speed
-  ///////////////////need to check for collision with the walls///////////////////////////////////////          
         if (this.x > game.height) {
             this.x = 0;
         } 
@@ -42,6 +41,8 @@ function Crawler(x, y, width, height, color) {
             this.y = game.height
         }    
     }   
+  ///////////////////need to check for collision with the walls///////////////////////////////////////          
+
 
 //I don't want the snake moving the opposite direction
 //name arrow keys as variables to make it readable
@@ -93,9 +94,8 @@ function Food (x, y, width, height, color) {
 //The Math.floor() function returns the largest integer less than or equal to a given number.
 //math.random() function returns a random number
 function locateApple() {
-    
-    random_x = Math.floor(Math.random() * 5);
-    random_y = Math.floor(Math.random() * 5);
+    random_x = Math.floor(Math.random() * game.height - 15); //need to take the height number
+    random_y = Math.floor(Math.random() * game.width - 15 ); // need to take the width number
 }    
 
 
@@ -111,7 +111,7 @@ const detectHit = () => {
         apple.alive = false;
         locateApple(apple);
         apple = new Food(random_x, random_y, 15, 15, 'red');
-        console.log(apple);
+        //console.log(apple);
     }
 }  
 
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       snake.newMove(newDirection);
     }))
 
-  window.setInterval(() => {
+  setInterval(() => {
     //The setInterval() method calls a function or evaluates an expression at 
     //specified intervals (in milliseconds).
     //The setInterval() method will continue calling the function until 
@@ -168,5 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
       apple.render();
       detectHit();
   }, 100);
-  
+  //run game is setInterval
+  //game over is clearInterval
 });
