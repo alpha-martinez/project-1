@@ -14,9 +14,11 @@ const right_arrow = 39;
 const left_arrow = 37;
 
 // this is for my snake character
-function Snake(x, y, width, height, color) {
+function Crawler(x, y, width, height, color) {
   this.x = x;
   this.y = y;
+  this.speedX = 0;
+  this.speedY = 0;
   this.width = width;
   this.height = height;
   this.color = color;
@@ -25,11 +27,16 @@ function Snake(x, y, width, height, color) {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
+  //attempting to add velocity 
+  this.update = function() {
+        this.x += this.speedX;
+        this.y += this.speedY; 
+ }
 }
 
 
 //this is for my apple character
-function Apple (x, y, width, height, color) {
+function Food (x, y, width, height, color) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -76,38 +83,30 @@ const gameLoop = () => {
   snake.render()
 }
 
-//attempting to add velocity 
-this.update = function() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-}
+//I don't want the snake moving the opposite direction
 
-//I don't want the snake moving the opposite of 
+this.newMove = function(newDirection) {
+    switch(newDirection) {
+        case (up_arrow):
+            this.speedX = 0;
+            this.speedY = -10;
+            break;
 
-const movementHandler = e => {
-    let key = e.keyCode
-    // w: 87, a:65, s:83, d:68
-    switch (key) {
-      case (up_arrow): // w up
-        if (snake.y > 0) snake.y -=5 //if your snake 
-        break;
+        case (down_arrow):
+            this.speedX = 0; 
+            this.SpeedY = 10;
+            
+        case (right_arrow):
+            this.speedX = 10;
+            this.speedY = 0;
 
-      case (down_arrow): // s down
-        if (snake.y + snake.height < game.height) snake.y +=5
-        break;
+        case(right_arrow):
+            this.speedX = -10;
+            this.speedY = 0;    
 
-      case (left_arrow): // a left
-        if (snake.x > 0) snake.x -=5
-        break;
-
-      case (right_arrow): // d right
-        if (snake.x + snake.width < game.width) snake.x +=5
-        break;
-
-      default:
-        console.log('invalid');
     }
-  }
+    
+}
 
 
 
@@ -117,16 +116,30 @@ document.addEventListener('DOMContentLoaded', () => {
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
   // CANVAS CONFIG
-  game.setAttribute('height', '530px');
-  game.setAttribute('width', '1500px');
+  game.setAttribute('height', '630px');
+  game.setAttribute('width', '800px');
   ctx = game.getContext('2d');
   // CHARACTER REFS
-  apple = new Apple(300, 100, 15, 15, 'red');
-  snake = new Snake(150, 150, 20, 20, 'yellow');
+  apple = new Food(300, 100, 15, 15, 'red');
+  snake = new Crawler(150, 150, 20, 20, 'yellow');
 
-  document.addEventListener('keydown', movementHandler);
-  let runGame = setInterval(gameLoop, 60);
-})
+  document.addEventListener('keydown', ((e) => {
+      let newDirection = e.keyCode;
+      snake.newMove(newDirection);
+    }))
+
+  window.setInterval(() => {
+    //The setInterval() method calls a function or evaluates an expression at 
+    //specified intervals (in milliseconds).
+    //The setInterval() method will continue calling the function until 
+    //clearInterval() is called, or the window is closed.
+    //Tip: 1000 ms = 1 second.
+      ctx.clearRect(0,0, game.width, game.height);
+      snake.update();
+      snake.render();
+  }, 400);
+  
+});
 
 
 
