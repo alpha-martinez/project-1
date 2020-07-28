@@ -6,19 +6,12 @@ let snake;
 let apple; //food
 let snakeBody = []; //have an array for the snake body
 
-
-//name arrow keys as variables to make it readable
-const up_arrow = 38;
-const down_arrow = 40;
-const right_arrow = 39;
-const left_arrow = 37;
-
 // this is for my snake character
 function Crawler(x, y, width, height, color) {
   this.x = x;
   this.y = y;
   this.speedX = 0;
-  this.speedY = 0;
+  this.speedY = 10;
   this.width = width;
   this.height = height;
   this.color = color;
@@ -27,12 +20,51 @@ function Crawler(x, y, width, height, color) {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
-  //attempting to add velocity 
+    //attempting to add velocity 
+    //collision with walls 
+    //https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript/Bounce_off_the_walls
   this.update = function() {
-        this.x += this.speedX;
-        this.y += this.speedY; 
- }
+            this.x += this.speedX;//this is for speed
+            this.y += this.speedY;
+        
+            if (this.y + snake.y > game.height || this.y < 0) {
+            this.y = -10;
+        }     
+    }
+    
+//I don't want the snake moving the opposite direction
+//name arrow keys as variables to make it readable
+const up_arrow = 38;
+const down_arrow = 40;
+const right_arrow = 39;
+const left_arrow = 37;
+
+this.newMove = function(newDirection) {
+    switch(newDirection) {
+        case (up_arrow):
+            this.speedX = 0;
+            this.speedY = -10;
+            break;
+
+        case (down_arrow):
+            this.speedX = 0; 
+            this.speedY = 10;
+            break;
+
+        case (right_arrow):
+            this.speedX = 10;
+            this.speedY = 0;
+            break;
+
+        case(left_arrow):
+            this.speedX = -10;
+            this.speedY = 0;  
+            break;  
+        }
+    }
+  
 }
+///////////////////need to check for collision with the walls///////////////////////////////////////////////////////////////
 
 
 //this is for my apple character
@@ -57,6 +89,8 @@ function locateApple() {
     let random_y = Math.floor(Math.random() * 5);
 }    
 
+
+/////////////////////////////////////////////check collision with apple////////////////////////////////////////////////////////////
 const detectHit = () => {
     //check for collision on x-axis
     //if the heroes bottom value is greater than > ogre's top value 
@@ -66,47 +100,26 @@ const detectHit = () => {
         snake.y < apple.y + apple.height 
     ) { apple.alive = false;
     }
-}
-
+}  
 
 const gameLoop = () => {
-  // clear the cavas
-  ctx.clearRect(0, 0, game.width, game.height);
-  // display the x, y coordinates of snake onto the DOM
-  movementDisplay.textContent = `X:${snake.x}\nY:${snake.y}`;
- 
-  if (apple.alive) {
-    apple.render()
-    detectHit();
-  }
-  // render the snake
-  snake.render()
-}
-
-//I don't want the snake moving the opposite direction
-
-this.newMove = function(newDirection) {
-    switch(newDirection) {
-        case (up_arrow):
-            this.speedX = 0;
-            this.speedY = -10;
-            break;
-
-        case (down_arrow):
-            this.speedX = 0; 
-            this.SpeedY = 10;
-            
-        case (right_arrow):
-            this.speedX = 10;
-            this.speedY = 0;
-
-        case(right_arrow):
-            this.speedX = -10;
-            this.speedY = 0;    
-
+    // clear the cavas
+    ctx.clearRect(0, 0, game.width, game.height);
+    // display the x, y coordinates of snake onto the DOM
+    movementDisplay.textContent = `X:${snake.x}\nY:${snake.y}`;
+   
+    if (apple.alive) {
+      apple.render()
+      detectHit();
     }
-    
-}
+    // render the snake
+    snake.render();
+    snake.newMove(newDirection);
+  }
+
+
+
+
 
 
 
@@ -116,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
   // CANVAS CONFIG
-  game.setAttribute('height', '630px');
-  game.setAttribute('width', '800px');
+  game.setAttribute('height', '600px');
+  game.setAttribute('width', '600px');
   ctx = game.getContext('2d');
   // CHARACTER REFS
   apple = new Food(300, 100, 15, 15, 'red');
@@ -137,10 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.clearRect(0,0, game.width, game.height);
       snake.update();
       snake.render();
-  }, 400);
+      apple.render();
+  }, 100);
   
 });
-
-
-
-
