@@ -4,9 +4,10 @@ let ctx
 let game;
 let snake;
 let apple; //food
-let snakeBody = []; //have an array for the snake body
+ //have an array for the snake body
 let random_x;
 let random_y;
+let gameScore = document.getElementById('score');
 
 // this is for my snake character
 function Crawler(x, y, width, height, color) {
@@ -18,6 +19,7 @@ function Crawler(x, y, width, height, color) {
   this.height = height;
   this.color = color;
   this.alive = true;
+  this.snakeBody = [];
   this.render = function() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -94,8 +96,8 @@ function Food (x, y, width, height, color) {
 //The Math.floor() function returns the largest integer less than or equal to a given number.
 //math.random() function returns a random number
 function locateApple() {
-    random_x = Math.floor(Math.random() * game.height - 15); //need to take the height number
-    random_y = Math.floor(Math.random() * game.width - 15 ); // need to take the width number
+    random_x = Math.floor(Math.random() * (game.height - 15)); //need to take the height number
+    random_y = Math.floor(Math.random() * (game.width - 15)); // need to take the width number
 }    
 
 
@@ -120,7 +122,7 @@ const gameLoop = () => {
     ctx.clearRect(0, 0, game.width, game.height);
     // display the x, y coordinates of snake onto the DOM
     movementDisplay.textContent = `X:${snake.x}\nY:${snake.y}`;
-   
+    apple = new Food(300, 100, 15, 15, 'red');
     if (apple.alive) {
       apple.render()
       detectHit();
@@ -167,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       snake.render();
       apple.render();
       detectHit();
-  }, 100);
+  }, 50);
   //run game is setInterval
   //game over is clearInterval
 });
