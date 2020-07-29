@@ -111,10 +111,11 @@ const detectHit = () => {
         snake.x < apple.x + apple.width &&
         snake.y + snake.height > apple.y &&
         snake.y < apple.y + apple.height ) { 
+            //snake height ++? 
         apple.alive = false;
         locateApple(apple);
         apple = new Food(random_x, random_y, 15, 15, 'red');
-        gameScore += 1;
+        
         //console.log(apple);
     }
 }  
@@ -144,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
   game.setAttribute('height', '600px');
   game.setAttribute('width', '600px');
   ctx = game.getContext('2d');
-  gameScore.textContent(gameScore);
+
   // CHARACTER REFS
   apple = new Food(300, 100, 15, 15, 'red');
   snake = new Crawler(150, 150, 20, 20, 'yellow');
@@ -165,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
       snake.render();
       apple.render();
       detectHit();
-  }, 50);
+  }, 65);
   //run game is setInterval
   //game over is clearInterval
 });
