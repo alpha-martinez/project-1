@@ -7,21 +7,20 @@ let apple; //food
  //have an array for the snake body
 let random_x;
 let random_y;
-let score = document.getElementById('score');
-let gameScore = 0;
 
 
 // this is for my snake character
 function Crawler(x, y, width, height, color) {
   this.x = x;
   this.y = y;
+  this.total = 0;
   this.speedX = 0;
   this.speedY = 10;
   this.width = width;
   this.height = height;
   this.color = color;
   this.alive = true;
-  this.snakeBody = [];
+  this.snakeBody = []; //snake coordinates
   this.render = function() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -85,6 +84,7 @@ this.newMove = function(newDirection) {
 function Food (x, y, width, height, color) {
     this.x = x;
     this.y = y;
+    this.gameScore = 1;
     this.width = width;
     this.height = height;
     this.color = color;
@@ -100,6 +100,7 @@ function Food (x, y, width, height, color) {
 function locateApple() {
     random_x = Math.floor(Math.random() * (game.height - 15)); //need to take the height number
     random_y = Math.floor(Math.random() * (game.width - 15)); // need to take the width number
+    
 }    
 
 
@@ -115,6 +116,7 @@ const detectHit = () => {
         apple.alive = false;
         locateApple(apple);
         apple = new Food(random_x, random_y, 15, 15, 'red');
+        this.total++
         
         //console.log(apple);
     }
@@ -124,12 +126,12 @@ const gameLoop = () => {
     // clear the cavas
     ctx.clearRect(0, 0, game.width, game.height);
     // display the x, y coordinates of snake onto the DOM
-    movementDisplay.textContent = `X:${snake.x}\nY:${snake.y}`;
     apple = new Food(300, 100, 15, 15, 'red');
     if (apple.alive) {
       apple.render()
       detectHit();
-    }
+    } 
+    scoreDisplay.textContent = `Score: ${snake.gameScore}`;
     // render the snake
     snake.render();
     snake.newMove(newDirection);
@@ -166,6 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
       snake.render();
       apple.render();
       detectHit();
+        document.getElementById('score')
+        .innerText = "Score: " + snake.total;
   }, 65);
   //run game is setInterval
   //game over is clearInterval
