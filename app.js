@@ -7,7 +7,9 @@ let apple; //food
  //have an array for the snake body
 let random_x;
 let random_y;
-let gameScore = document.getElementById('score');
+let score = document.getElementById('score');
+let gameScore = 0;
+
 
 // this is for my snake character
 function Crawler(x, y, width, height, color) {
@@ -109,10 +111,10 @@ const detectHit = () => {
         snake.x < apple.x + apple.width &&
         snake.y + snake.height > apple.y &&
         snake.y < apple.y + apple.height ) { 
-        
         apple.alive = false;
         locateApple(apple);
         apple = new Food(random_x, random_y, 15, 15, 'red');
+        gameScore += 1;
         //console.log(apple);
     }
 }  
@@ -133,13 +135,6 @@ const gameLoop = () => {
   }
 
 
-//create a function for game over
-
-//create a scoreboard
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
   // DOM REFS
@@ -149,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
   game.setAttribute('height', '600px');
   game.setAttribute('width', '600px');
   ctx = game.getContext('2d');
+  gameScore.textContent(gameScore);
   // CHARACTER REFS
   apple = new Food(300, 100, 15, 15, 'red');
   snake = new Crawler(150, 150, 20, 20, 'yellow');
