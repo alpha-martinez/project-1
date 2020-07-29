@@ -9,6 +9,7 @@ let random_x;
 let random_y;
 let score = 0;
 let highScore = 0;
+let snakeArray = [];
 
 
 // this is for my snake character
@@ -21,6 +22,7 @@ function Crawler(x, y, width, height, color) {
   this.height = height;
   this.color = color;
   this.alive = true;
+//   this.snakeBody = [];
   this.render = function() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -42,10 +44,6 @@ function Crawler(x, y, width, height, color) {
         }    
     }   
 
-let addBody = () => {
-    let tail = snake[snake.length -1];
-}
-
 //I don't want the snake moving the opposite direction
 //name arrow keys as variables to make it readable
 const up_arrow = 38;
@@ -56,9 +54,10 @@ const left_arrow = 37;
 this.newMove = function(newDirection) {
     switch(newDirection) {
         case (up_arrow):
-        
+            //if ()
             this.speedX = 0;
             this.speedY = -10;
+
             break;
         case (down_arrow):
             this.speedX = 0; 
@@ -121,19 +120,21 @@ const detectHit = () => {
 }  
 
 
-const gameLoop = () => {
-    // clear the cavas
-    ctx.clearRect(0, 0, game.width, game.height);
-    // display the x, y coordinates of snake onto the DOM
-    apple = new Food(300, 100, 15, 15, 'red');
-    if (apple.alive) {
-      apple.render()
-      detectHit();
-    } 
-    // render the snake
-    snake.render();
-    snake.newMove(newDirection);
-  }
+// const gameLoop = () => {
+//     // clear the cavas
+//     ctx.clearRect(0, 0, game.width, game.height);
+//     // display the x, y coordinates of snake onto the DOM
+//     apple = new Food(300, 100, 15, 15, 'red');
+//     if (apple.alive) {
+//       apple.render()
+//       detectHit();
+//     } 
+//     // render the snake
+//     snake.render();
+//     snake.newMove(newDirection);
+//     snakeBody.render();
+//     snakeBody.newMove(newDirection);
+//   }
 
 //gameOver function
   let gameOver = () => {
@@ -156,24 +157,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // CHARACTER REFS
   apple = new Food(300, 100, 15, 15, 'red');
   snake = new Crawler(150, 150, 20, 20, 'yellow');
+  
+  snakeBody = new Crawler(100, 100, 20, 20, 'blue');
+//   snakeBody2 = new Crawler(80, 80, 20, 20, 'red');
+  snakeArray.push(snake, snakeBody);
 
   document.addEventListener('keydown', ((e) => {
       let newDirection = e.keyCode;
       snake.newMove(newDirection);
+     // snakeBody.newMove(newDirection);
     }))
 
 
   setInterval(() => {
-    //The setInterval() method calls a function or evaluates an expression at 
-    //specified intervals (in milliseconds).
-    //The setInterval() method will continue calling the function until 
-    //clearInterval() is called, or the window is closed.
-    //Tip: 1000 ms = 1 second.
       ctx.clearRect(0,0, game.width, game.height);
+
+      for (let i = (snakeArray.length - 1); i < -1; i--){ // i is always going to start at 0
+        snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
+       
+        snakeArray[i].y = snakeArray[i - 1].y; // minus 
+        console.log(snakeArray[i]);
+        snakeArray[i].render();
+    
+      } 
+    //   console.log(snakeArray);
       snake.update();
       snake.render();
       apple.render();
       detectHit();
+
+
         document.getElementById('score')
         .innerText = "Score: " + score;
 
@@ -181,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .innerText = 'High Score: ' + highScore;
     gameOver();
 
-  }, 65);
-  //run game is setInterval
-  //game over is clearInterval
+  }, 165);
+ 
 });
