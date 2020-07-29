@@ -101,45 +101,36 @@ function locateApple() {
     
 }    
 
-
-/////////////////////////////////////////////check collision with apple////////////////////////////////////////////////////////////
 const detectHit = () => {
-    //check for collision on x-axis
-    //if the heroes bottom value is greater than > ogre's top value 
     if (snake.x + snake.width > apple.x &&
         snake.x < apple.x + apple.width &&
         snake.y + snake.height > apple.y &&
         snake.y < apple.y + apple.height ) { 
            score++;
         apple.alive = false;
+        let snakeBody = new Crawler(100, 100, 20, 20, 'yellow');
+        snakeArray.push(snakeBody);
+
         locateApple(apple);
         apple = new Food(random_x, random_y, 15, 15, 'red');
-        
-        //console.log(apple);
     }
 }  
 
-
-// const gameLoop = () => {
-//     // clear the cavas
-//     ctx.clearRect(0, 0, game.width, game.height);
-//     // display the x, y coordinates of snake onto the DOM
-//     apple = new Food(300, 100, 15, 15, 'red');
-//     if (apple.alive) {
-//       apple.render()
-//       detectHit();
-//     } 
-//     // render the snake
-//     snake.render();
-//     snake.newMove(newDirection);
-//     snakeBody.render();
-//     snakeBody.newMove(newDirection);
-//   }
-
-//gameOver function
   let gameOver = () => {
-    if (score > highScore) {
-        highScore = score
+    //detecting if the game should end or not
+    //another function you lost and here's whats going to happen 
+    for ( let i = 3; i < snakeArray.length; i++){
+        if (snakeArray[0].x === snakeArray[i].x &&
+            snakeArray[0].y === snakeArray[i].y 
+        ) {
+            console.log('you lost!')
+            return true;
+        }
+    }
+    return false;
+   
+        if (score > highScore) {
+            highScore = score
     }
   }
 
@@ -158,9 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
   apple = new Food(300, 100, 15, 15, 'red');
   snake = new Crawler(150, 150, 20, 20, 'yellow');
   
-  snakeBody = new Crawler(100, 100, 20, 20, 'blue');
+//   snakeBody = new Crawler(100, 100, 20, 20, 'blue');
 //   snakeBody2 = new Crawler(80, 80, 20, 20, 'red');
-  snakeArray.push(snake, snakeBody);
+
+    snakeArray.push(snake);
 
   document.addEventListener('keydown', ((e) => {
       let newDirection = e.keyCode;
@@ -172,13 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(() => {
       ctx.clearRect(0,0, game.width, game.height);
 
-      for (let i = (snakeArray.length - 1); i < -1; i--){ // i is always going to start at 0
+      for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
+
         snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
        
         snakeArray[i].y = snakeArray[i - 1].y; // minus 
-        console.log(snakeArray[i]);
+        
         snakeArray[i].render();
-    
+        
       } 
     //   console.log(snakeArray);
       snake.update();
@@ -194,6 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .innerText = 'High Score: ' + highScore;
     gameOver();
 
-  }, 165);
+  }, 50);
  
 });
