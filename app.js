@@ -7,27 +7,23 @@ let apple; //food
  //have an array for the snake body
 let random_x;
 let random_y;
+let score = 0;
 
 
 // this is for my snake character
 function Crawler(x, y, width, height, color) {
   this.x = x;
   this.y = y;
-  this.total = 0;
   this.speedX = 0;
   this.speedY = 10;
   this.width = width;
   this.height = height;
   this.color = color;
   this.alive = true;
-  this.snakeBody = []; //snake coordinates
   this.render = function() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
-    //attempting to add velocity 
-    //collision with walls 
-    //https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript/Bounce_off_the_walls
   this.update = function() {
             this.x += this.speedX;//this is for speed
             this.y += this.speedY;// this is for speed
@@ -44,8 +40,10 @@ function Crawler(x, y, width, height, color) {
             this.y = game.height
         }    
     }   
-  ///////////////////need to check for collision with the walls///////////////////////////////////////          
 
+let addBody = () => {
+    let tail = snake[snake.length -1];
+}
 
 //I don't want the snake moving the opposite direction
 //name arrow keys as variables to make it readable
@@ -84,7 +82,7 @@ this.newMove = function(newDirection) {
 function Food (x, y, width, height, color) {
     this.x = x;
     this.y = y;
-    this.gameScore = 1;
+    this.total = 1;
     this.width = width;
     this.height = height;
     this.color = color;
@@ -112,7 +110,7 @@ const detectHit = () => {
         snake.x < apple.x + apple.width &&
         snake.y + snake.height > apple.y &&
         snake.y < apple.y + apple.height ) { 
-            //snake height ++? 
+           score++;
         apple.alive = false;
         locateApple(apple);
         apple = new Food(random_x, random_y, 15, 15, 'red');
@@ -169,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
       apple.render();
       detectHit();
         document.getElementById('score')
-        .innerText = "Score: " + snake.total;
+        .innerText = "Score: " + score;
   }, 65);
   //run game is setInterval
   //game over is clearInterval
