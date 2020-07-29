@@ -8,6 +8,7 @@ let apple; //food
 let random_x;
 let random_y;
 let score = 0;
+let highScore = 0;
 
 
 // this is for my snake character
@@ -114,11 +115,11 @@ const detectHit = () => {
         apple.alive = false;
         locateApple(apple);
         apple = new Food(random_x, random_y, 15, 15, 'red');
-        this.total++
         
         //console.log(apple);
     }
 }  
+
 
 const gameLoop = () => {
     // clear the cavas
@@ -129,10 +130,16 @@ const gameLoop = () => {
       apple.render()
       detectHit();
     } 
-    scoreDisplay.textContent = `Score: ${snake.gameScore}`;
     // render the snake
     snake.render();
     snake.newMove(newDirection);
+  }
+
+//gameOver function
+  let gameOver = () => {
+    if (score > highScore) {
+        highScore = score
+    }
   }
 
 
@@ -155,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
       snake.newMove(newDirection);
     }))
 
+
   setInterval(() => {
     //The setInterval() method calls a function or evaluates an expression at 
     //specified intervals (in milliseconds).
@@ -168,6 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
       detectHit();
         document.getElementById('score')
         .innerText = "Score: " + score;
+
+        document.getElementById('top-right')
+        .innerText = 'High Score: ' + highScore;
+    gameOver();
+
   }, 65);
   //run game is setInterval
   //game over is clearInterval

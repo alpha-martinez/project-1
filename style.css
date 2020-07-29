@@ -38,24 +38,32 @@ canvas {
     justify-content: center;
     align-items: center;
     background-color: rgb(5, 139, 5);
+    font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
+    color: coral;
 }
 
 main {
     grid-area: game;
+    font-size: 25px;
 }
 
 #top-left {
     grid-area: top-left;
+    font-size: 25px;
 }
 
 #top-right {
     grid-area: top-right;
+    font-weight: bolder;
+    font-size: 25px;
 }
 
 #btm-left {
     grid-area: btm-left;
+    font-size: 25px;
 }
 
 #btm-right {
     grid-area: btm-right;
+    font-size: 25px;
 }
