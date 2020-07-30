@@ -8,12 +8,12 @@ MAJOR KEY 1: figure out how to move the snake around [DONE]
 
 MAJOR KEY 2: figure out how to randomly place a block around the grid [DONE]
 
-MAJOR KEY 3: storage system? I need to take into consideration that when a snake eats a "apple"/"boxes", it gets added to its tail
+MAJOR KEY 3: storage system? I need to take into consideration that when a snake eats a "apple"/"boxes", it gets added to its tail [DONE]
 
 MAJOR KEY 4: score board to keep track of how many player eats. [DONE]
 
-MAJOR 5: find a function where when the snake hits a wall, it resets the game
+step 6: find a function where when snake hits himself, game resets 
 
-step 6: find a function where when snake hits himself, game resets
+another key: have a high score going [DONE]
 
-another key: have a high score going [1/2 way there, need to check if it works]
+animation and readme 

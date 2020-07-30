@@ -9,6 +9,8 @@ let random_y;
 let score = 0;
 let highScore = 0;
 let snakeArray = [];
+let gameLoop;
+
 
 
 // this is for my snake character
@@ -117,17 +119,23 @@ const detectHit = () => {
     }
 }  
 
+
+let startGame = () => {
+    playBtn.style.display = 'none';
+}
+
   let gameOver = () => {
     //detecting if the game should end or not
     //another function you lost and here's whats going to happen 
     for ( let i = 3; i < snakeArray.length; i++){
         if (snakeArray[0].x === snakeArray[i].x &&
             snakeArray[0].y === snakeArray[i].y ) {
-            snake.x = 150;
-            snake.y = 150;
-            snakeArray = [];
+            console.log('you lost!');
+            clearInterval(gameLoop);
         }
+
     }
+
         if (localStorage.getItem('highScore')) {
             highScore = localStorage.getItem('highScore')
         } else {
@@ -139,7 +147,7 @@ const detectHit = () => {
 
   }
 
- 
+
   
   
 
@@ -150,9 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
+  console.log(game);
   playBtn = document.getElementById('restartBtn');
   // CANVAS CONFIG
-  
+
   game.setAttribute('height', '600px');
   game.setAttribute('width', '600px');
   ctx = game.getContext('2d');
@@ -174,7 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }))
 
 
-    setInterval(() => {
+    gameLoop = setInterval(() => {
+        
         ctx.clearRect(0,0, game.width, game.height);
   
         for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
@@ -182,17 +192,22 @@ document.addEventListener('DOMContentLoaded', () => {
           snakeArray[i].y = snakeArray[i - 1].y; // minus    
           snakeArray[i].render();  
         } 
-      //   console.log(snakeArray);
+
         snake.update();
         snake.render();
         apple.render();
         detectHit();
-          document.getElementById('score')
-          .innerText = "Score: " + score;
+
+
+        document.getElementById('score').innerText = "Score: " + score;
   
-          document.getElementById('top-right')
-          .innerText = 'High Score: ' + highScore;
-      gameOver();
+        document.getElementById('top-right').innerText = 'High Score: ' + highScore;
+
+        //playBtn.addEventListener('click', gameLoop);
+
+        
+        
+        gameOver();
   
     }, 50);
 
