@@ -67,3 +67,17 @@ main {
     grid-area: btm-right;
     font-size: 25px;
 }
+
+#restartBtn {
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    margin: 15px -75px -15px 75px;
+    bottom: 10%;
+    right: 50%;
+
+    color: #5fc9b8;
+    background-color: #1b1333;
+    font-family: 'Press Start 2p', monospace;
+    display: none;
+}

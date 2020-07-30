@@ -123,8 +123,9 @@ const detectHit = () => {
     for ( let i = 3; i < snakeArray.length; i++){
         if (snakeArray[0].x === snakeArray[i].x &&
             snakeArray[0].y === snakeArray[i].y ) {
-            
-            snake = new Crawler(150, 150, 20, 20, 'yellow');
+            snake.x = 150;
+            snake.y = 150;
+            snakeArray = [];
         }
     }
         if (localStorage.getItem('highScore')) {
@@ -136,18 +137,22 @@ const detectHit = () => {
             localStorage.setItem('highScore', score)
     }
 
-    
-    
-
   }
+
+ 
+  
+  
 
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
   // DOM REFS
+
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
+  playBtn = document.getElementById('restartBtn');
   // CANVAS CONFIG
+  
   game.setAttribute('height', '600px');
   game.setAttribute('width', '600px');
   ctx = game.getContext('2d');
@@ -169,27 +174,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }))
 
 
+    setInterval(() => {
+        ctx.clearRect(0,0, game.width, game.height);
+  
+        for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
+          snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
+          snakeArray[i].y = snakeArray[i - 1].y; // minus    
+          snakeArray[i].render();  
+        } 
+      //   console.log(snakeArray);
+        snake.update();
+        snake.render();
+        apple.render();
+        detectHit();
+          document.getElementById('score')
+          .innerText = "Score: " + score;
+  
+          document.getElementById('top-right')
+          .innerText = 'High Score: ' + highScore;
+      gameOver();
+  
+    }, 50);
 
- setInterval(() => {
-      ctx.clearRect(0,0, game.width, game.height);
 
-      for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
-        snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
-        snakeArray[i].y = snakeArray[i - 1].y; // minus    
-        snakeArray[i].render();  
-      } 
-    //   console.log(snakeArray);
-      snake.update();
-      snake.render();
-      apple.render();
-      detectHit();
-        document.getElementById('score')
-        .innerText = "Score: " + score;
 
-        document.getElementById('top-right')
-        .innerText = 'High Score: ' + highScore;
-    gameOver();
-
-  }, 50);
+ 
  
 });
