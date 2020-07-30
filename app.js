@@ -10,6 +10,7 @@ let score = 0;
 let highScore = 0;
 let snakeArray = [];
 let gameLoop;
+let playBtn;
 
 
 
@@ -111,7 +112,7 @@ const detectHit = () => {
         snake.y < apple.y + apple.height ) { 
            score++;
         apple.alive = false;
-        let snakeBody = new Crawler(100, 100, 20, 20, 'yellow');
+        let snakeBody = new Crawler(100, 100, 20, 20, '#4B0082');
         snakeArray.push(snakeBody);
 
         locateApple(apple);
@@ -120,32 +121,29 @@ const detectHit = () => {
 }  
 
 
-// let startGame = () => {
-  
-// }
 
   let gameOver = () => {
-    //detecting if the game should end or not
-    //another function you lost and here's whats going to happen 
-    for ( let i = 3; i < snakeArray.length; i++){
-        if (snakeArray[0].x === snakeArray[i].x &&
-            snakeArray[0].y === snakeArray[i].y ) {
-            console.log('you lost!');
-            clearInterval(gameLoop);
+    // //detecting if the game should end or not
+    // //another function you lost and here's whats going to happen 
+    // for ( let i = 3; i < snakeArray.length; i++){
+    //     if (snakeArray[0].x === snakeArray[i].x &&
+    //         snakeArray[0].y === snakeArray[i].y ) {
+    //         console.log('you lost!');
+    //         clearInterval(gameLoop);
 
-            playBtn.style.display = 'block';
-            complete.style.display = 'none';
-         }
-    }
-        if (localStorage.getItem('highScore')) {
-            highScore = localStorage.getItem('highScore')
-        } else {
-            localStorage.setItem('highScore', 0)
-        }
-        if (score > highScore) {
-            localStorage.setItem('highScore', score)
-    }
-
+    //         playBtn.style.display = 'block';
+    //         //complete.style.display = 'none';
+    //      }
+    // }
+    //     if (localStorage.getItem('highScore')) {
+    //         highScore = localStorage.getItem('highScore')
+    //     } else {
+    //         localStorage.setItem('highScore', 0)
+    //     }
+    //     if (score > highScore) {
+    //         localStorage.setItem('highScore', score)
+    // }
+   // gameLoop();
   }
 
 
@@ -169,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // CHARACTER REFS
   apple = new Food(300, 100, 15, 15, 'red');
-  snake = new Crawler(150, 150, 20, 20, 'yellow');
+  snake = new Crawler(150, 150, 20, 20, '#FF00FF');
   
   
 //   snakeBody = new Crawler(100, 100, 20, 20, 'blue');
@@ -183,8 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
      // snakeBody.newMove(newDirection);
     }))
 
-
-    gameLoop = setInterval(() => {
+    function gameInit() {
         
         ctx.clearRect(0,0, game.width, game.height);
   
@@ -204,17 +201,46 @@ document.addEventListener('DOMContentLoaded', () => {
   
         document.getElementById('top-right').innerText = 'High Score: ' + highScore;
 
+       
+        gameStatus = false;
+        playBtn.addEventListener('click', startGame);
+
+        
+        for ( let i = 3; i < snakeArray.length; i++){
+            if (snakeArray[0].x === snakeArray[i].x &&
+                snakeArray[0].y === snakeArray[i].y ) {
+                console.log('you lost!');
+                clearInterval(gameLoop);
+    
+                playBtn.style.display = 'block';
+                //complete.style.display = 'none';
+             }
+        }
+            if (localStorage.getItem('highScore')) {
+                highScore = localStorage.getItem('highScore')
+            } else {
+                localStorage.setItem('highScore', 0)
+            }
+            if (score > highScore) {
+                localStorage.setItem('highScore', score)
+        }
+        //gameOver();
+    }
+    let gameStatus = true;
+
+    let startGame = () => {
         playBtn = document.getElementById('restartBtn');
-        //playBtn.addEventListener('click', startGame);
+       playBtn.style.display = 'none';
+            snake = new Crawler(150, 150, 20, 20, '#FF00FF');
+            snakeArray =  [];
+            snakeArray.push(snake);    
+            gameLoop = setInterval(function () {
+                gameInit();
+                        
+            }, 30);
 
-        
-        
-        gameOver();
-  
-    }, 35);
+    }
+      startGame();
 
-
-
- 
  
 });
