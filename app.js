@@ -1,4 +1,3 @@
-//global variables
 let movementDisplay;
 let ctx
 let game;
@@ -54,24 +53,30 @@ const left_arrow = 37;
 this.newMove = function(newDirection) {
     switch(newDirection) {
         case (up_arrow):
-           // if ()
+           if (this.speedY !== 10) {
             this.speedX = 0;
             this.speedY = -10;
-
+           }
             break;
         case (down_arrow):
-            this.speedX = 0; 
-            this.speedY = 10;
+            if (this.speedY !== -10){
+                this.speedX = 0; 
+                this.speedY = 10;
+            }
             break;
 
         case (right_arrow):
-            this.speedX = 10;
-            this.speedY = 0;
+            if (this.speedX !== -10){
+                this.speedX = 10;
+                this.speedY = 0;
+            }
             break;
 
         case(left_arrow):
+        if (this.speedY !== 10){
             this.speedX = -10;
             this.speedY = 0;  
+        }
             break;  
         }
     }
@@ -165,25 +170,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  let newGame = setInterval(() => {
+ setInterval(() => {
       ctx.clearRect(0,0, game.width, game.height);
 
       for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
-
         snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
-       
-        snakeArray[i].y = snakeArray[i - 1].y; // minus 
-        
-        snakeArray[i].render();
-        
+        snakeArray[i].y = snakeArray[i - 1].y; // minus    
+        snakeArray[i].render();  
       } 
     //   console.log(snakeArray);
       snake.update();
       snake.render();
       apple.render();
       detectHit();
-
-
         document.getElementById('score')
         .innerText = "Score: " + score;
 
