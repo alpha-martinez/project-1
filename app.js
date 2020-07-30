@@ -120,9 +120,9 @@ const detectHit = () => {
 }  
 
 
-let startGame = () => {
-    playBtn.style.display = 'none';
-}
+// let startGame = () => {
+  
+// }
 
   let gameOver = () => {
     //detecting if the game should end or not
@@ -132,10 +132,11 @@ let startGame = () => {
             snakeArray[0].y === snakeArray[i].y ) {
             console.log('you lost!');
             clearInterval(gameLoop);
-        }
 
+            playBtn.style.display = 'block';
+            complete.style.display = 'none';
+         }
     }
-
         if (localStorage.getItem('highScore')) {
             highScore = localStorage.getItem('highScore')
         } else {
@@ -159,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
   movementDisplay = document.getElementById('movement');
   game = document.getElementById('game');
   console.log(game);
-  playBtn = document.getElementById('restartBtn');
+ 
   // CANVAS CONFIG
 
   game.setAttribute('height', '600px');
@@ -203,13 +204,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
         document.getElementById('top-right').innerText = 'High Score: ' + highScore;
 
-        //playBtn.addEventListener('click', gameLoop);
+        playBtn = document.getElementById('restartBtn');
+        //playBtn.addEventListener('click', startGame);
 
         
         
         gameOver();
   
-    }, 50);
+    }, 35);
 
 
 
