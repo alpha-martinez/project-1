@@ -196,13 +196,18 @@ document.addEventListener('DOMContentLoaded', () => {
         apple.render();
         detectHit();
 
-
         document.getElementById('score').innerText = "Score: " + score;
   
         document.getElementById('top-right').innerText = 'High Score: ' + highScore;
 
+        message = document.getElementById('gameMessage')
        
         gameStatus = false;
+
+        lost = document.getElementById('youDie');
+
+        instructions = document.getElementById('instructions');
+
         playBtn.addEventListener('click', startGame);
 
         
@@ -211,9 +216,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 snakeArray[0].y === snakeArray[i].y ) {
                 console.log('you lost!');
                 clearInterval(gameLoop);
-    
+                
+                message.style.display = 'block';
+                lost.style.display = 'block';
                 playBtn.style.display = 'block';
-                //complete.style.display = 'none';
+                
              }
         }
             if (localStorage.getItem('highScore')) {
@@ -229,11 +236,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameStatus = true;
 
     let startGame = () => {
+        message = document.getElementById('gameMessage');
+        lost = document.getElementById('youDie');
         playBtn = document.getElementById('restartBtn');
-       playBtn.style.display = 'none';
+
+        playBtn.style.display = 'none';
+        message.style.display = 'none';
+        lost.style.display = 'none';
+    
+
             snake = new Crawler(150, 150, 20, 20, '#FF00FF');
             snakeArray =  [];
-            snakeArray.push(snake);    
+            snakeArray.push(snake);   
+            score = 0; 
             gameLoop = setInterval(function () {
                 gameInit();
                         

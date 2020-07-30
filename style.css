@@ -7,7 +7,7 @@ body {
     padding-top: 1em;
     text-align: center;
     background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
-    
+    display: flex;
     min-width: 1000px;
 }
 
@@ -81,6 +81,22 @@ main {
     background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
    
 
+}
+
+
+#youDie {
+    width: 800px;
+    height: 300px;
+    position: absolute;
+    margin: 150px -400px -150px 400px;
+    bottom: 50%;
+    right: 50%;
+    display: inline-block;
+    font-size: 60px;
+    color: black;
+    line-height: 30px;
+    display: none;
+    background: rgba(73, 71, 71, 0.541);
 }
 
 #restartBtn {
