@@ -54,7 +54,7 @@ const left_arrow = 37;
 this.newMove = function(newDirection) {
     switch(newDirection) {
         case (up_arrow):
-            //if ()
+           // if ()
             this.speedX = 0;
             this.speedY = -10;
 
@@ -92,13 +92,9 @@ function Food (x, y, width, height, color) {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
-//function for apple falling randomly
-//The Math.floor() function returns the largest integer less than or equal to a given number.
-//math.random() function returns a random number
 function locateApple() {
     random_x = Math.floor(Math.random() * (game.height - 15)); //need to take the height number
-    random_y = Math.floor(Math.random() * (game.width - 15)); // need to take the width number
-    
+    random_y = Math.floor(Math.random() * (game.width - 15)); // need to take the width number   
 }    
 
 const detectHit = () => {
@@ -121,17 +117,23 @@ const detectHit = () => {
     //another function you lost and here's whats going to happen 
     for ( let i = 3; i < snakeArray.length; i++){
         if (snakeArray[0].x === snakeArray[i].x &&
-            snakeArray[0].y === snakeArray[i].y 
-        ) {
-            console.log('you lost!')
-            return true;
+            snakeArray[0].y === snakeArray[i].y ) {
+            
+            snake = new Crawler(150, 150, 20, 20, 'yellow');
         }
     }
-    return false;
-   
+        if (localStorage.getItem('highScore')) {
+            highScore = localStorage.getItem('highScore')
+        } else {
+            localStorage.setItem('highScore', 0)
+        }
         if (score > highScore) {
-            highScore = score
+            localStorage.setItem('highScore', score)
     }
+
+    
+    
+
   }
 
 
@@ -149,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
   apple = new Food(300, 100, 15, 15, 'red');
   snake = new Crawler(150, 150, 20, 20, 'yellow');
   
+  
 //   snakeBody = new Crawler(100, 100, 20, 20, 'blue');
 //   snakeBody2 = new Crawler(80, 80, 20, 20, 'red');
 
@@ -161,7 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }))
 
 
-  setInterval(() => {
+
+  let newGame = setInterval(() => {
       ctx.clearRect(0,0, game.width, game.height);
 
       for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
