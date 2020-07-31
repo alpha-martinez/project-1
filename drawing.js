@@ -22,6 +22,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', movementHandler);
     let runGame = setInterval(gameLoop, 60);
   })
-
-
+```
 

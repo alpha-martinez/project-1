@@ -132,7 +132,7 @@ this.newMove = function(newDirection) {
 
 ### Collision and location
 
-
+For my apple, I know I needed it to randomly appear on my canvas and in order to do that, I used Math.floor since it will return the largest interger of math.random and then I times it with the game.width and game.height so it won't spawn in the between the walls.
 
 ``` javascript
 
@@ -156,7 +156,42 @@ const detectHit = () => {
     }
 }  
 
+```
 
+  ### Detect Hit
+    I referred back to one of the lessons we did during class, where we had the snake recognize if it collided with the apple, to disappear. I added on the locateApple function with the apple characteristics needed for it to respawn. Along with this, I added score++ for the score to increase as you eat the apple and my snakeArray to recognize when it needs to grow.
 
+```javascript
+  const detectHit = () => {
+    if (snake.x + snake.width > apple.x &&
+        snake.x < apple.x + apple.width &&
+        snake.y + snake.height > apple.y &&
+        snake.y < apple.y + apple.height ) { 
+           score++;
+        apple.alive = false;
+        let snakeBody = new Crawler(100, 100, 20, 20, '#4B0082');
+        snakeArray.push(snakeBody);
+
+        locateApple(apple);
+        apple = new Food(random_x, random_y, 15, 15, 'red');
+    }
+} 
+```
+
+### Getting my snake to grow!
+
+``` javascript
+
+ for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
+      snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
+      snakeArray[i].y = snakeArray[i - 1].y; // minus    
+      snakeArray[i].render();  
+    } 
 
 ```
+### Future Additions
+
+- I do want to create obstacles for the snake, so as it moves along, it also needs to watch out for the obstacles that gets in its way. 
+- Perhaps add in where as the snake's body grows, the speed of the snake increases as well. It would add on another challenege as well to the game. 
+- Have it in where if the snake collides with the wall, it can also die. 
+- Add animations to my snake and apple and add sound to my game. 
