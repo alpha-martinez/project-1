@@ -25,6 +25,8 @@ There were a few things starting right away, I knew would take me a while to get
 
 ### Using class-components 
 
+For the snake game, I had to come up with two different types of "characters" for my game, the snake and an apple. In order to do this, I created two different class-components because I wanted my snake component to have a speed function and I didn't want that to be part of my apple function. 
+
 ```javascript
 function Crawler(x, y, width, height, color) {
   this.x = x;
