@@ -7,14 +7,25 @@
     <title>Snake game</title>
 </head>
 <body>
-    <div id="container">
+    <div id="container" style="display:none">
         <aside id="top-left"><h2>The Snake Game</h2></aside>
         <aside id="top-right"><h2 id="movement"></h2></aside>
         <main>
             <canvas id="game"></canvas>
         </main>
         <aside id="btm-left"><h2 id="score"></h2></aside>
-        <aside id="btm-right"><h2 id="status">Let's play!</h2></aside>
+        <aside id="btm-right"><h2 id="status"></h2></aside>
+    </div>
+    <div class="info" id="info" style="display:block">
+        <h3>HOW TO PLAY!</h3>
+        <p>Real simple! 
+            <br>You move your snake with your arrow keys.
+            <br>You grow as you eat your apple, but be careful.
+            <br>Make sure you don't collide with yourself.
+            <br>If you do, you die! 🤗
+            <br>Try to beat your score and have fun! ✌🏼
+        </p>
+        <button id="playBtn"></button>
     </div>
     <div id='gameMessage'>
         <button id='restartBtn'>Play</button>

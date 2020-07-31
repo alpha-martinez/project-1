@@ -5,9 +5,11 @@ html, body {
 
 body {
     padding-top: 1em;
-    text-align: center;
-    background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
     display: flex;
+    text-align: center;
+    align-items: center;
+    background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
+    background-size: 150%;
     min-width: 1000px;
 }
 
@@ -27,8 +29,8 @@ canvas {
 
 #container {
     min-width: 50em;
-    background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
-    background-size: cover;
+    /* background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg"); */
+    /* background-size: cover; */
     margin: 0 auto;
     padding: 1em;
     display: grid;
@@ -44,7 +46,7 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(5, 139, 5);
+    /* background-color: rgb(5, 139, 5); */
     font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
     color: yellow;
 }
@@ -57,32 +59,60 @@ main {
 #top-left {
     grid-area: top-left;
     font-size: 25px;
-    background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
+    /* background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg"); */
+    /* background-size: cover; */
 }
 
 #top-right {
     grid-area: top-right;
     font-weight: bolder;
     font-size: 25px;
-    background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
+    /* background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg"); */
 
 }
 
 #btm-left {
     grid-area: btm-left;
     font-size: 25px;
-    background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
+    /* background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg"); */
 
 }
 
 #btm-right {
     grid-area: btm-right;
     font-size: 25px;
-    background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg");
+    /* background-image: url("https://i.ytimg.com/vi/AXxQUB5yDVQ/maxresdefault.jpg"); */
    
 
 }
+.info {
+    position: absolute;
+    background-color: rgba(65, 63, 63, 0.815);
+    color: yellow;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    border-radius: 20px;
+    text-align: center;
+    display: none;
 
+}
+#playBtn {
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    margin: 15px -75px -15px 75px;
+    bottom: 10%;
+    right: 50%;
+
+    color: #5fc9b8;
+    background-color: #1b1333;
+    font-family: 'Press Start 2p', monospace;
+    display: none;
+}
 
 #youDie {
     width: 800px;
@@ -96,7 +126,7 @@ main {
     color: black;
     line-height: 30px;
     display: none;
-    background: rgba(73, 71, 71, 0.541);
+    
 }
 
 #restartBtn {

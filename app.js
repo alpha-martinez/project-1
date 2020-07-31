@@ -9,8 +9,8 @@ let random_y;
 let score = 0;
 let highScore = 0;
 let snakeArray = [];
-let gameLoop;
-let playBtn;
+let restartBtn = document.getElementById('restartBtn');
+let playBtn = document.getElementById('playBtn');
 
 
 
@@ -120,36 +120,89 @@ const detectHit = () => {
     }
 }  
 
+function gameInit() {
+        
+    ctx.clearRect(0,0, game.width, game.height);
 
+    for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
+      snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
+      snakeArray[i].y = snakeArray[i - 1].y; // minus    
+      snakeArray[i].render();  
+    } 
 
-  let gameOver = () => {
-    // //detecting if the game should end or not
-    // //another function you lost and here's whats going to happen 
-    // for ( let i = 3; i < snakeArray.length; i++){
-    //     if (snakeArray[0].x === snakeArray[i].x &&
-    //         snakeArray[0].y === snakeArray[i].y ) {
-    //         console.log('you lost!');
-    //         clearInterval(gameLoop);
+    snake.update();
+    snake.render();
+    apple.render();
+    detectHit();
 
-    //         playBtn.style.display = 'block';
-    //         //complete.style.display = 'none';
-    //      }
-    // }
-    //     if (localStorage.getItem('highScore')) {
-    //         highScore = localStorage.getItem('highScore')
-    //     } else {
-    //         localStorage.setItem('highScore', 0)
-    //     }
-    //     if (score > highScore) {
-    //         localStorage.setItem('highScore', score)
-    // }
-   // gameLoop();
-  }
+    document.getElementById('score').innerText = "Score: " + score;
 
+    document.getElementById('top-right').innerText = 'High Score: ' + highScore;
 
+    message = document.getElementById('gameMessage');
+   
+    gameStatus = false;
+    
+
+    lost = document.getElementById('youDie');
+
+    restartBtn.addEventListener('click', startGame);
   
-  
+    for ( let i = 3; i < snakeArray.length; i++){
+        if (snakeArray[0].x === snakeArray[i].x &&
+            snakeArray[0].y === snakeArray[i].y ) {
+            console.log('you lost!');
+            clearInterval(gameLoop);
+            
+            message.style.display = 'block';
+            lost.style.display = 'block';
+            restartBtn.style.display = 'block';
+            
+         }
+    }
+        if (localStorage.getItem('highScore')) {
+            highScore = localStorage.getItem('highScore')
+        } else {
+            localStorage.setItem('highScore', 0)
+        }
+        if (score > highScore) {
+            localStorage.setItem('highScore', score)
+    }
+    //gameOver();
+}
+let gameStatus = true;
 
+
+
+let startGame = () => {
+
+    info.style.display = 'none';
+    container.style.display = 'block';
+
+    //infoScreen = document.querySelector('.info');
+    message = document.getElementById('gameMessage');
+    lost = document.getElementById('youDie');
+    
+
+    //infoScreen.style.display = 'block';
+    
+    //console.log(infoScreen.style);
+
+    restartBtn.style.display = 'none';
+    message.style.display = 'none';
+    lost.style.display = 'none';
+
+
+        snake = new Crawler(150, 150, 20, 20, '#FF00FF');
+        snakeArray =  [];
+        snakeArray.push(snake);   
+        score = 0; 
+        gameLoop = setInterval(function () {
+            gameInit();
+                    
+        }, 30);
+
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
@@ -164,6 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
   game.setAttribute('height', '600px');
   game.setAttribute('width', '600px');
   ctx = game.getContext('2d');
+
+    playBtn.addEventListener('click', startGame);
+    playBtn.style.display = 'block';
 
   // CHARACTER REFS
   apple = new Food(300, 100, 15, 15, 'red');
@@ -181,81 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
      // snakeBody.newMove(newDirection);
     }))
 
-    function gameInit() {
-        
-        ctx.clearRect(0,0, game.width, game.height);
-  
-        for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
-          snakeArray[i].x = snakeArray[i - 1].x; //put its in different place in the array 
-          snakeArray[i].y = snakeArray[i - 1].y; // minus    
-          snakeArray[i].render();  
-        } 
-
-        snake.update();
-        snake.render();
-        apple.render();
-        detectHit();
-
-        document.getElementById('score').innerText = "Score: " + score;
-  
-        document.getElementById('top-right').innerText = 'High Score: ' + highScore;
-
-        message = document.getElementById('gameMessage')
-       
-        gameStatus = false;
-
-        lost = document.getElementById('youDie');
-
-        instructions = document.getElementById('instructions');
-
-        playBtn.addEventListener('click', startGame);
-
-        
-        for ( let i = 3; i < snakeArray.length; i++){
-            if (snakeArray[0].x === snakeArray[i].x &&
-                snakeArray[0].y === snakeArray[i].y ) {
-                console.log('you lost!');
-                clearInterval(gameLoop);
-                
-                message.style.display = 'block';
-                lost.style.display = 'block';
-                playBtn.style.display = 'block';
-                
-             }
-        }
-            if (localStorage.getItem('highScore')) {
-                highScore = localStorage.getItem('highScore')
-            } else {
-                localStorage.setItem('highScore', 0)
-            }
-            if (score > highScore) {
-                localStorage.setItem('highScore', score)
-        }
-        //gameOver();
-    }
-    let gameStatus = true;
-
-    let startGame = () => {
-        message = document.getElementById('gameMessage');
-        lost = document.getElementById('youDie');
-        playBtn = document.getElementById('restartBtn');
-
-        playBtn.style.display = 'none';
-        message.style.display = 'none';
-        lost.style.display = 'none';
-    
-
-            snake = new Crawler(150, 150, 20, 20, '#FF00FF');
-            snakeArray =  [];
-            snakeArray.push(snake);   
-            score = 0; 
-            gameLoop = setInterval(function () {
-                gameInit();
-                        
-            }, 30);
-
-    }
-      startGame();
 
  
 });
