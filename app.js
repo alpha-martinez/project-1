@@ -148,7 +148,7 @@ function gameInit() {
 
     restartBtn.addEventListener('click', startGame);
   
-    for ( let i = 3; i < snakeArray.length; i++){
+    for ( let i = 5; i < snakeArray.length; i++){
         if (snakeArray[0].x === snakeArray[i].x &&
             snakeArray[0].y === snakeArray[i].y ) {
             console.log('you lost!');
