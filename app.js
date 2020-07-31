@@ -12,8 +12,6 @@ let snakeArray = [];
 let restartBtn = document.getElementById('restartBtn');
 let playBtn = document.getElementById('playBtn');
 
-
-
 // this is for my snake character
 function Crawler(x, y, width, height, color) {
   this.x = x;
@@ -57,6 +55,7 @@ this.newMove = function(newDirection) {
     switch(newDirection) {
         case (up_arrow):
            if (this.speedY !== 10) {
+            
             this.speedX = 0;
             this.speedY = -10;
            }
@@ -200,7 +199,7 @@ let startGame = () => {
         gameLoop = setInterval(function () {
             gameInit();
                     
-        }, 30);
+        }, 25);
 
 }
 
