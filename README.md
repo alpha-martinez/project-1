@@ -170,6 +170,8 @@ const detectHit = () => {
 
 ### Getting my snake to grow!
 
+This was one of the most difficult part of my game. I know I had to use a for loop but I didn't fully know how to apply it. To start with, we needed an empty array, which I called snakeArray. From there, I wanted to start from the last and work my way down. To do that, I knew I had to use a i--. I also wanted to take into consideration, the positioning of the snake. I didn't want the head to move and wanted the body places to move, so I used i -1.
+
 ``` javascript
 
  for (let i = (snakeArray.length - 1); i > 0; i--){ // i is always going to start at 0
