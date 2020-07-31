@@ -55,13 +55,14 @@ this.newMove = function(newDirection) {
     switch(newDirection) {
         case (up_arrow):
            if (this.speedY !== 10) {
-            
+            console.log("moving up");
             this.speedX = 0;
             this.speedY = -10;
            }
             break;
         case (down_arrow):
             if (this.speedY !== -10){
+                console.log("moving down");
                 this.speedX = 0; 
                 this.speedY = 10;
             }
@@ -69,13 +70,15 @@ this.newMove = function(newDirection) {
 
         case (right_arrow):
             if (this.speedX !== -10){
+                console.log("moving right");
                 this.speedX = 10;
                 this.speedY = 0;
             }
             break;
 
         case(left_arrow):
-        if (this.speedY !== 10){
+        if (this.speedX !== 10){
+            console.log("moving left");
             this.speedX = -10;
             this.speedY = 0;  
         }
