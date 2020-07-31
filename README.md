@@ -22,3 +22,38 @@ It's real simple, but there could still be improvements made to the key options.
 ## Challenges that came my way.
 
 There were a few things starting right away, I knew would take me a while to get and fully piece together. Despite the challenges that came my way, I am grateful that I was able to accomplish a fully completed game. This was definitely an exciting project and one that allowed me to practice what I had learned so far.
+
+### Using class-components 
+
+```javascript
+function Crawler(x, y, width, height, color) {
+  this.x = x;
+  this.y = y;
+  this.speedX = 0;
+  this.speedY = 10;
+  this.width = width;
+  this.height = height;
+  this.color = color;
+  this.alive = true;
+//   this.snakeBody = [];
+  this.render = function() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+  this.update = function() {
+            this.x += this.speedX;//this is for speed
+            this.y += this.speedY;// this is for speed
+        if (this.x > game.height) {
+            this.x = 0;
+        } 
+        if (this. y > game.width) {
+            this.y = 0;
+        } 
+        if (this.x < 0) {
+            this.x = game.width
+        } 
+        if (this.y < 0) {
+            this.y = game.height
+        }    
+    }   
+```
