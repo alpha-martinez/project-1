@@ -1,5 +1,6 @@
 # The Snake Game!
 Project One: Creating my snake game!
+https://alpha-martinez.github.io/project-1/
 
 ## Reasoning behind snake game
 
