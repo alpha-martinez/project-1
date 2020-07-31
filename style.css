@@ -95,11 +95,12 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0 auto;
-    border-radius: 20px;
+    border-radius: 30px;
     text-align: center;
     display: none;
 
 }
+
 #playBtn {
     width: 150px;
     height: 30px;
