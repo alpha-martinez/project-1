@@ -151,7 +151,7 @@ const detectHit = () => {
 
   ### Detect Hit
   
-    I referred back to one of the lessons we did during class, where we had the snake recognize if it collided with the apple, to disappear. I added on the locateApple function with the apple characteristics needed for it to respawn. Along with this, I added score++ for the score to increase as you eat the apple and my snakeArray to recognize when it needs to grow.
+I referred back to one of the lessons we did during class, where we had the snake recognize if it collided with the apple, to disappear. I added on the locateApple function with the apple characteristics needed for it to respawn. Along with this, I added score++ for the score to increase as you eat the apple and my snakeArray to recognize when it needs to grow.
 
 ```javascript
   const detectHit = () => {
